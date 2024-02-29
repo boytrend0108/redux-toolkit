@@ -1,0 +1,37 @@
+type MoveLeftAction = { type: 'position/MOVE_LEFT' };
+type MoveRightAction = { type: 'position/MOVE_RIGHT' };
+type MoveUpAction = { type: 'position/MOVE_UP' };
+type MoveDownAction = { type: 'position/MOVE_DOWN' };
+type Action = MoveDownAction | MoveLeftAction | MoveRightAction | MoveUpAction;
+
+const moveLeft = (): MoveLeftAction => ({ type: 'position/MOVE_LEFT' });
+const moveRight = (): MoveRightAction => ({ type: 'position/MOVE_RIGHT' });
+const moveUp = (): MoveUpAction => ({ type: 'position/MOVE_UP' });
+const moveDown = (): MoveDownAction => ({ type: 'position/MOVE_DOWN' });
+
+type Position = {
+  x: number;
+  y: number;
+}
+const initialPosition: Position = { x: 0, y: 0 };
+
+export const positionReducer = (
+  position: Position = initialPosition,
+  action: Action,
+) => {
+  switch (action.type) {
+    case 'position/MOVE_UP':
+      return { ...position, y: position.y - 1 };
+    case 'position/MOVE_DOWN':
+      return { ...position, y: position.y + 1 };
+    case 'position/MOVE_LEFT':
+      return { ...position, x: position.x - 1 };
+    case 'position/MOVE_RIGHT':
+      return { ...position, x: position.x + 1 };
+    default:
+      return position;
+  }
+}
+
+export default positionReducer;
+export const actions = { moveDown, moveLeft, moveRight, moveUp };
